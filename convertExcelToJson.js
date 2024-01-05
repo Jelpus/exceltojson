@@ -6,6 +6,13 @@ const { Readable } = require('stream');
 let excelEjemplo = 'https://07109f54-7493-4017-b768-8102e95cfb89.usrfiles.com/ugd/07109f_40fb214d7f0c45b897903965263e92ed.xlsx'
 let csvEjemplo = 'https://07109f54-7493-4017-b768-8102e95cfb89.usrfiles.com/ugd/07109f_2f59dd6227194e92a53984e29b1a3be6.csv'
 
+const url = process.argv[2];
+
+if (!url) {
+    console.error('Por favor, proporciona una URL como argumento.');
+    process.exit(1);
+}
+
 
 async function streamToBuffer(stream) {
     const chunks = [];
@@ -74,10 +81,7 @@ async function convertExcelToJson(url) {
     return data;
 }
 
-
-// Test the function with a URL
-const testUrl = csvEjemplo; // Replace with your URL
-convertExcelToJson(testUrl).then(data => {
+convertExcelToJson(url).then(data => {
     console.log(JSON.stringify(data, null, 2));
 }).catch(error => {
     console.error('Error:', error);
